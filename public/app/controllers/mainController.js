@@ -3,14 +3,14 @@ app.controller("mainController", function ($scope) {
     $scope.showDashboardView = true;
     $scope.showLocationView = false;
     $scope.showClientView = false;
-    $scope.showVoitureView = false;
+    $scope.showVehiculeView = false;
     $scope.active = 1;
 
     $scope.showDashboard = function (n) {
         $scope.showDashboardView = true;
         $scope.showLocationView = false;
         $scope.showClientView = false;
-        $scope.showVoitureView = false;
+        $scope.showVehiculeView = false;
         $scope.active = n;
     };
 
@@ -18,7 +18,7 @@ app.controller("mainController", function ($scope) {
         $scope.showDashboardView = false;
         $scope.showLocationView = true;
         $scope.showClientView = false;
-        $scope.showVoitureView = false;
+        $scope.showVehiculeView = false;
         $scope.active = n;
     };
 
@@ -26,15 +26,15 @@ app.controller("mainController", function ($scope) {
         $scope.showDashboardView = false;
         $scope.showLocationView = false;
         $scope.showClientView = true;
-        $scope.showVoitureView = false;
+        $scope.showVehiculeView = false;
         $scope.active = n;
     };
 
-    $scope.showVoiture = function (n) {
+    $scope.showVehicule = function (n) {
         $scope.showDashboardView = false;
         $scope.showLocationView = false;
         $scope.showClientView = false;
-        $scope.showVoitureView = true;
+        $scope.showVehiculeView = true;
         $scope.active = n;
     };
 

@@ -40,13 +40,13 @@
     <!--
     initialize the SDK after all desired features are loaded, set useEmulator to false
     to avoid connecting the SDK to running emulators.
--->
+    -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 </head>
 
 <body ng-app="carApp">
-    <!-- Start Header -->
-    <div class="header">
+    <!-- Start Header Section -->
+    <div class="header-section">
         <div class="container-fluid">
             <div class="content">
                 <div class="logo-container">
@@ -60,7 +60,7 @@
             </div>
         </div>
     </div>
-    <!-- End Header -->
+    <!-- End Header Section -->
     <!-- Start Page -->
     <div class="page" ng-controller="mainController">
         <!-- Start sidebar -->
@@ -92,11 +92,11 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" ng-click="showVoiture(4)" ng-class="{'active': isActive(4)}">
+                    <a href="" ng-click="showVehicule(4)" ng-class="{'active': isActive(4)}">
                         <span class="i-container">
                             <i class="fa-solid fa-car-side"></i>
                         </span>
-                        Voitures
+                        Vehicules
                     </a>
                 </li>
             </ul>
@@ -115,7 +115,8 @@
                 <!-- Start Location -->
                 <div ng-show="showLocationView">
                     <div class="location">
-                        <div class="location-header">
+                        <!-- Start Header -->
+                        <div class="header">
                             <h1>
                                 Rental Contracts
                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Contract">
@@ -131,98 +132,103 @@
                                 <input type="search" id="carSearch" placeholder="Enter a car's model" />
                             </div>
                         </div>
+                        <!-- End Header -->
                         <hr />
-                        <h5>All Contracts</h5>
-                        <div class="table-container">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Client</th>
-                                        <th scope="col">Car</th>
-                                        <th scope="col">Start Date</th>
-                                        <th scope="col">Start Hour</th>
-                                        <th scope="col">Start Km Count</th>
-                                        <th scope="col">End Date</th>
-                                        <th scope="col">End Hour</th>
-                                        <th scope="col">End Km Count</th>
-                                        <th scope="col">Distance</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Marklllllllllllllllllllll</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td class="actions">
-                                            <button type="button" class="btn btn-primary">
-                                                Edit
-                                            </button>
-                                            <button type="button" class="btn btn-danger">
-                                                Remove
-                                            </button>
-                                            <button type="button" class="btn btn-success">
-                                                Bill
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Marklllllllllllllllllllll</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td class="actions">
-                                            <button type="button" class="btn btn-primary">
-                                                Edit
-                                            </button>
-                                            <button type="button" class="btn btn-danger">
-                                                Remove
-                                            </button>
-                                            <button type="button" class="btn btn-success">
-                                                Bill
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Marklllllllllllllllllllll</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td class="actions">
-                                            <button type="button" class="btn btn-primary">
-                                                Edit
-                                            </button>
-                                            <button type="button" class="btn btn-danger">
-                                                Remove
-                                            </button>
-                                            <button type="button" class="btn btn-success">
-                                                Bill
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <!-- Start Show -->
+                        <div class="show">
+                            <h5>All Contracts</h5>
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Client</th>
+                                            <th scope="col">Car</th>
+                                            <th scope="col">Start Date</th>
+                                            <th scope="col">Start Hour</th>
+                                            <th scope="col">Start Km Count</th>
+                                            <th scope="col">End Date</th>
+                                            <th scope="col">End Hour</th>
+                                            <th scope="col">End Km Count</th>
+                                            <th scope="col">Distance</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Mark</td>
+                                            <td>Mark</td>
+                                            <td>Mark</td>
+                                            <td>Mark</td>
+                                            <td>Marklllllllllllllllllllll</td>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                            <td>@mdo</td>
+                                            <td class="actions">
+                                                <button type="button" class="btn btn-primary">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger">
+                                                    Remove
+                                                </button>
+                                                <button type="button" class="btn btn-success">
+                                                    Bill
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Mark</td>
+                                            <td>Mark</td>
+                                            <td>Mark</td>
+                                            <td>Mark</td>
+                                            <td>Marklllllllllllllllllllll</td>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                            <td>@mdo</td>
+                                            <td class="actions">
+                                                <button type="button" class="btn btn-primary">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger">
+                                                    Remove
+                                                </button>
+                                                <button type="button" class="btn btn-success">
+                                                    Bill
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Mark</td>
+                                            <td>Mark</td>
+                                            <td>Mark</td>
+                                            <td>Mark</td>
+                                            <td>Marklllllllllllllllllllll</td>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                            <td>@mdo</td>
+                                            <td class="actions">
+                                                <button type="button" class="btn btn-primary">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger">
+                                                    Remove
+                                                </button>
+                                                <button type="button" class="btn btn-success">
+                                                    Bill
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        <!-- End Show -->
                     </div>
                 </div>
                 <!-- End Location -->
@@ -232,42 +238,63 @@
                 </div>
                 <!-- End Client -->
                 <!-- Start Voitures -->
-                <div ng-show="showVoitureView">
-                    <div class="voitures" ng-controller="controllerVoiture">
-                        {{ voitures }}
-                        <div class="table-container">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Type</th>
-                                        <th scope="col">Marque</th>
-                                        <th scope="col">Modèle</th>
-                                        <th scope="col">Puissance</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td>Mark</td>
-                                        <td class="actions">
-                                            <button type="button" class="btn btn-primary">
-                                                Edit
-                                            </button>
-                                            <button type="button" class="btn btn-danger">
-                                                Remove
-                                            </button>
-                                            <button type="button" class="btn btn-success">
-                                                Bill
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div ng-show="showVehiculeView">
+                    <div class="vehicule" ng-controller="controllerVehicule">
+                        <!-- Start Header -->
+                        <div class="header">
+                            <h1>
+                                Vehicules
+                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Ajouter Vehicule">
+                                    <i class="fa-solid fa-file-circle-plus"></i>
+                                </a>
+                            </h1>
+                            <div class="search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="search" id="clientSearch" placeholder="Enter a client's name" />
+                            </div>
+                            <div class="search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="search" id="carSearch" placeholder="Enter a car's model" />
+                            </div>
+                        </div>
+                        <!-- End Header -->
+                        <hr />
+                        <div class="show" ng-model="showVehicules()">
+                            <h5>Toutes les vehicules</h5>
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Type</th>
+                                            <th scope="col">Marque</th>
+                                            <th scope="col">Modèle</th>
+                                            <th scope="col">Puissance</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-model="vehicules">
+                                            <td>{{ vehicules.id }}</td>
+                                            <td>{{ vehicules.type }}</td>
+                                            <td>{{ vehicules.marque }}</td>
+                                            <td>{{ vehicules.modele }}</td>
+                                            <td>{{ vehicules.puissance }}</td>
+                                            <td class="actions">
+                                                <button type="button" class="btn btn-primary">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger">
+                                                    Remove
+                                                </button>
+                                                <button type="button" class="btn btn-success">
+                                                    Bill
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,7 +306,7 @@
     <!-- End Page -->
     <script src="app/modules/carApp.js"></script>
     <script src="app/controllers/mainController.js"></script>
-    <script src="app/controllers/controllerVoiture.js"></script>
+    <script src="app/controllers/controllerVehicule.js"></script>
     <script src="app/lib/bootstrap.bundle.min.js"></script>
     <script src="app/lib/all.min.js"></script>
     <script>
