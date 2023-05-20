@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Berriss Dealership</title>
+    <link rel="shortcut icon" href="content/img/car-rear-solid.png" type="image/x-icon" />
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="content/css/bootstrap.min.css" />
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="content/css/all.min.css" />
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="content/css/style.css" />
+    <!-- Google Fonts - Work sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <!-- Angular JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/9.22.0/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.22.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/9.22.0/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/9.22.0/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/9.22.0/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/9.22.0/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/9.22.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/9.22.0/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/9.22.0/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/9.22.0/firebase-performance-compat.js"></script>
+    <!--
+    initialize the SDK after all desired features are loaded, set useEmulator to false
+    to avoid connecting the SDK to running emulators.
+-->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+</head>
+
+<body ng-app="carApp">
+    <!-- Start Header -->
+    <div class="header">
+        <div class="container-fluid">
+            <div class="content">
+                <div class="logo-container">
+                    <i class="fa-solid fa-car-rear fa-xl"></i>
+                    <h2>Berriss Dealership</h2>
+                </div>
+                <div class="profile-container">
+                    <p>Ismail Berriss</p>
+                    <img src="content/img/profile_placeholder.png" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header -->
+    <!-- Start Page -->
+    <div class="page" ng-controller="mainController">
+        <!-- Start sidebar -->
+        <div class="sidebar">
+            <button class="btn">Nouvelle Location</button>
+            <ul>
+                <li>
+                    <a href="" ng-click="showDashboard(1)" ng-class="{'active': isActive(1)}">
+                        <span class="i-container">
+                            <i class="fa-solid fa-chart-bar"></i>
+                        </span>
+                        Tableau de bord
+                    </a>
+                </li>
+                <li>
+                    <a href="" ng-click="showLocation(2)" ng-class="{'active': isActive(2)}">
+                        <span class="i-container">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </span>
+                        Locations
+                    </a>
+                </li>
+                <li>
+                    <a href="" ng-click="showClient(3)" ng-class="{'active': isActive(3)}">
+                        <span class="i-container">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        Clients
+                    </a>
+                </li>
+                <li>
+                    <a href="" ng-click="showVoiture(4)" ng-class="{'active': isActive(4)}">
+                        <span class="i-container">
+                            <i class="fa-solid fa-car-side"></i>
+                        </span>
+                        Voitures
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- End sidebar -->
+        <!-- Start Content -->
+        <div class="page-content">
+            <div class="container">
+                <!-- Start Dashboard -->
+                <div ng-show="showDashboardView">
+                    <div class="dashboard">
+                        Dashboard
+                    </div>
+                </div>
+                <!-- End Dashboard -->
+                <!-- Start Location -->
+                <div ng-show="showLocationView">
+                    <div class="location">
+                        <div class="location-header">
+                            <h1>
+                                Rental Contracts
+                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Contract">
+                                    <i class="fa-solid fa-file-circle-plus"></i>
+                                </a>
+                            </h1>
+                            <div class="search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="search" id="clientSearch" placeholder="Enter a client's name" />
+                            </div>
+                            <div class="search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="search" id="carSearch" placeholder="Enter a car's model" />
+                            </div>
+                        </div>
+                        <hr />
+                        <h5>All Contracts</h5>
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Client</th>
+                                        <th scope="col">Car</th>
+                                        <th scope="col">Start Date</th>
+                                        <th scope="col">Start Hour</th>
+                                        <th scope="col">Start Km Count</th>
+                                        <th scope="col">End Date</th>
+                                        <th scope="col">End Hour</th>
+                                        <th scope="col">End Km Count</th>
+                                        <th scope="col">Distance</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Marklllllllllllllllllllll</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                        <td>@mdo</td>
+                                        <td class="actions">
+                                            <button type="button" class="btn btn-primary">
+                                                Edit
+                                            </button>
+                                            <button type="button" class="btn btn-danger">
+                                                Remove
+                                            </button>
+                                            <button type="button" class="btn btn-success">
+                                                Bill
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Marklllllllllllllllllllll</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                        <td>@mdo</td>
+                                        <td class="actions">
+                                            <button type="button" class="btn btn-primary">
+                                                Edit
+                                            </button>
+                                            <button type="button" class="btn btn-danger">
+                                                Remove
+                                            </button>
+                                            <button type="button" class="btn btn-success">
+                                                Bill
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Marklllllllllllllllllllll</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                        <td>@mdo</td>
+                                        <td class="actions">
+                                            <button type="button" class="btn btn-primary">
+                                                Edit
+                                            </button>
+                                            <button type="button" class="btn btn-danger">
+                                                Remove
+                                            </button>
+                                            <button type="button" class="btn btn-success">
+                                                Bill
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Location -->
+                <!-- Start Client -->
+                <div ng-show="showClientView">
+                    <div class="client">Clients</div>
+                </div>
+                <!-- End Client -->
+                <!-- Start Voitures -->
+                <div ng-show="showVoitureView">
+                    <div class="voitures" ng-controller="controllerVoiture">
+                        {{ voitures }}
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Type</th>
+                                        <th scope="col">Marque</th>
+                                        <th scope="col">Modèle</th>
+                                        <th scope="col">Puissance</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td>Mark</td>
+                                        <td class="actions">
+                                            <button type="button" class="btn btn-primary">
+                                                Edit
+                                            </button>
+                                            <button type="button" class="btn btn-danger">
+                                                Remove
+                                            </button>
+                                            <button type="button" class="btn btn-success">
+                                                Bill
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Voitures -->
+            </div>
+        </div>
+        <!-- End Content -->
+    </div>
+    <!-- End Page -->
+    <script src="app/modules/carApp.js"></script>
+    <script src="app/controllers/mainController.js"></script>
+    <script src="app/controllers/controllerVoiture.js"></script>
+    <script src="app/lib/bootstrap.bundle.min.js"></script>
+    <script src="app/lib/all.min.js"></script>
+    <script>
+        var tooltipTriggerList = [].slice.call(
+            document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        var tooltipList = tooltipTriggerList.map(function (
+            tooltipTriggerEl
+        ) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+        angular;
+    </script>
+</body>
+
+</html>
