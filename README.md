@@ -1,2 +1,2 @@
 # Car_Rental_Management
-School projet for of car rental management with AngularJS and Firebase.
+School projet of a car rental management with AngularJS and Firebase.
