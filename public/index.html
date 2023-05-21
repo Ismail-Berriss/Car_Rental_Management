@@ -278,13 +278,14 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="car in cars">
-                                            <td>{{ car.numero }}</td>
+                                            <td>{{ car.id }}</td>
                                             <td>{{ car.type }}</td>
                                             <td>{{ car.marque }}</td>
                                             <td>{{ car.modele }}</td>
                                             <td>{{ car.puissance }}</td>
                                             <td class="actions">
-                                                <button type="button" class="btn btn-primary">
+                                                <button type="button" class="btn btn-primary"
+                                                    ng-click="showCarsUpdate(car)">
                                                     Edit
                                                 </button>
                                                 <button type="button" class="btn btn-danger" ng-click="deleteCar(car)">
@@ -299,6 +300,8 @@
                                 </table>
                             </div>
                         </div>
+                        <!-- End Read -->
+                        <!-- Start Create -->
                         <div class="create" ng-show="showCarsCreateView">
                             <!-- Start Header -->
                             <div class="header">
@@ -369,7 +372,76 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- Start Read -->
+                        <!-- End Create -->
+                        <!-- Start Update -->
+                        <div class="update" ng-show="showCarsUpdateView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <h1>
+                                    Modifier Vehicule
+                                </h1>
+                            </div>
+                            <hr />
+                            <!-- End Header -->
+                            <form class="row g-3 needs-validation" novalidate>
+                                <div class="col-md-6">
+                                    <label for="marque" class="form-label">Marque</label>
+                                    <input type="text" class="form-control" id="marque" ng-model="car.marque" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer une marque.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="modele" class="form-label">Modèle</label>
+                                    <input type="text" class="form-control" id="modele" ng-model="car.modele" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un modèle.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="puissance" class="form-label">Puissance</label>
+                                    <input type="number" class="form-control" id="puissance" ng-model="car.puissance"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un puissance.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="type" class="form-label">Type</label>
+                                    <select class="form-select" id="type" ng-model="car.type" required>
+                                        <option selected disabled value="">Choisir...</option>
+                                        <option>Gasoil</option>
+                                        <option>Essence</option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez coisir un type.
+                                    </div>
+                                </div>
+                                <div class="col-12 submit">
+                                    <button class="btn btn-primary" ng-click="updateCar(car)"
+                                        type="submit">Modifier</button>
+                                    <button class="btn btn-danger" ng-click="showCarsRead()">
+                                        Annuler
+                                    </button>
+                                    <div class="success" ng-show="success">
+                                        <span>Nouvelle vehicule ajoutée avec succès!</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Update -->
                     </div>
                 </div>
                 <!-- End Cars -->
