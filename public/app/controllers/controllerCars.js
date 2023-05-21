@@ -13,24 +13,22 @@ app.controller("controllerCar", function($scope, $firebaseArray) {
         $scope.showCarsCreateView = false;
         $scope.showCarsUpdateView = false;
         $scope.cars = Car;
-    }
+    };
 
     $scope.showCarsCreate = function() {
         $scope.showCarsReadView = false;
         $scope.showCarsCreateView = true;
         $scope.showCarsUpdateView = false;
-    }
+    };
 
     $scope.showCarsUpdate = function(car) {
         $scope.showCarsReadView = false;
         $scope.showCarsCreateView = false;
         $scope.showCarsUpdateView = true;
-
         $scope.car = car;
-    }
+    };
 
     /* Search */
-
     $scope.filterMarque = function(car) {
         if(!$scope.searchMarque) {
             return true;
@@ -38,7 +36,7 @@ app.controller("controllerCar", function($scope, $firebaseArray) {
 
         let searchMarque = $scope.searchMarque.toLowerCase();
         return car.marque.toLowerCase().indexOf(searchMarque) !== -1;
-    }
+    };
 
     $scope.filterModele = function(car) {
         if(!$scope.searchModele) {
@@ -47,7 +45,7 @@ app.controller("controllerCar", function($scope, $firebaseArray) {
 
         let searchModele = $scope.searchModele.toLowerCase();
         return car.modele.toLowerCase().indexOf(searchModele) !== -1;
-    }
+    };
 
     /* Create */
     $scope.createCar = function () {

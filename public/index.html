@@ -234,7 +234,189 @@
                 <!-- End Location -->
                 <!-- Start Client -->
                 <div ng-show="showClientView">
-
+                    <div class="client" ng-controller="controllerClient">
+                        <!-- Start Read -->
+                        <div class="read" ng-show="showClientsReadView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <div class="header-container">
+                                    <h1>
+                                        Clients
+                                    </h1>
+                                    <button class="add" ng-click="showClientsCreate()">
+                                        <span class="circle1"></span>
+                                        <span class="circle2"></span>
+                                        <span class="circle3"></span>
+                                        <span class="circle4"></span>
+                                        <span class="circle5"></span>
+                                        <span class="text">Ajouter Client</span>
+                                    </button>
+                                </div>
+                                <div class="search-container">
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Nom" ng-model="searchNom" />
+                                    </div>
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Prenom" ng-model="searchPrenom" />
+                                    </div>
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Adresse" ng-model="searchAdresse" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Header -->
+                            <hr />
+                            <h5>Tous les clients</h5>
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th>Adresse</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            ng-repeat="client in clients | orderBy:'id' | filter : filterNom | filter : filterPrenom | filter : filterAdresse">
+                                            <td>{{ client.id }}</td>
+                                            <td>{{ client.nom }}</td>
+                                            <td>{{ client.prenom }}</td>
+                                            <td>{{ client.adresse }}</td>
+                                            <td class="actions">
+                                                <button type="button" class="btn btn-primary"
+                                                    ng-click="showClientsUpdate(client)">
+                                                    Modifier
+                                                </button>
+                                                <button type="button" class="btn btn-danger"
+                                                    ng-click="deleteClient(client)">
+                                                    Supprimer
+                                                </button>
+                                                <button type="button" class="btn btn-success">
+                                                    Facture
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End Read -->
+                        <!-- Start Create -->
+                        <div class="create" ng-show="showClientsCreateView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <h1>
+                                    Ajouter Client
+                                </h1>
+                            </div>
+                            <hr />
+                            <!-- End Header -->
+                            <form class="row g-3 needs-validation" novalidate>
+                                <div class="col-md-6">
+                                    <label for="nom" class="form-label">Nom</label>
+                                    <input type="text" class="form-control" id="nom" ng-model="newClient.nom" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un nom.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="prenom" class="form-label">Prénom</label>
+                                    <input type="text" class="form-control" id="prenom" ng-model="newClient.prenom"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un prénom.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="adresse" class="form-label">Adresse</label>
+                                    <input type="text" class="form-control" id="adresse" ng-model="newClient.adresse"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer une adresse.
+                                    </div>
+                                </div>
+                                <div class="col-12 submit">
+                                    <button class="btn btn-primary" ng-click="createClient()"
+                                        type="submit">Ajouter</button>
+                                    <button class="btn btn-danger" ng-click="showClientsRead()">
+                                        Annuler
+                                    </button>
+                                    <div class="success" ng-show="success">
+                                        <span>Nouveau client ajouté avec succès!</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Create -->
+                        <!-- Start Update -->
+                        <div class="update" ng-show="showClientsUpdateView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <h1>
+                                    Modifier Client
+                                </h1>
+                            </div>
+                            <hr />
+                            <!-- End Header -->
+                            <form class="row g-3 needs-validation" novalidate>
+                                <div class="col-md-6">
+                                    <label for="nom" class="form-label">Nom</label>
+                                    <input type="text" class="form-control" id="nom" ng-model="client.nom" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un nom.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="prenom" class="form-label">Prénom</label>
+                                    <input type="text" class="form-control" id="prenom" ng-model="client.prenom"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un prénom.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="adresse" class="form-label">Adresse</label>
+                                    <input type="text" class="form-control" id="adresse" ng-model="client.adresse"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer une adresse.
+                                    </div>
+                                </div>
+                                <div class="col-12 submit">
+                                    <button class="btn btn-primary" ng-click="updateClient(client)"
+                                        type="submit">Modifier</button>
+                                    <button class="btn btn-danger" ng-click="showClientsRead()">
+                                        Annuler
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Update -->
+                    </div>
                 </div>
                 <!-- End Client -->
                 <!-- Start Cars -->
@@ -247,10 +429,6 @@
                                 <div class="header-container">
                                     <h1>
                                         Vehicules
-                                        <!-- <a href="" ng-click="showCarsCreate()" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" title="Ajouter Vehicule">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </a> -->
                                     </h1>
                                     <button class="add" ng-click="showCarsCreate()">
                                         <span class="circle1"></span>
@@ -281,10 +459,10 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Type</th>
-                                            <th scope="col">Marque</th>
-                                            <th scope="col">Modèle</th>
-                                            <th scope="col">Puissance</th>
-                                            <th scope="col">Actions</th>
+                                            <th>Marque</th>
+                                            <th>Modèle</th>
+                                            <th>Puissance</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -298,13 +476,13 @@
                                             <td class="actions">
                                                 <button type="button" class="btn btn-primary"
                                                     ng-click="showCarsUpdate(car)">
-                                                    Edit
+                                                    Modifier
                                                 </button>
                                                 <button type="button" class="btn btn-danger" ng-click="deleteCar(car)">
-                                                    Remove
+                                                    Supprimer
                                                 </button>
                                                 <button type="button" class="btn btn-success">
-                                                    Bill
+                                                    Facture
                                                 </button>
                                             </td>
                                         </tr>
@@ -447,9 +625,6 @@
                                     <button class="btn btn-danger" ng-click="showCarsRead()">
                                         Annuler
                                     </button>
-                                    <div class="success" ng-show="success">
-                                        <span>Nouvelle vehicule ajoutée avec succès!</span>
-                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -467,6 +642,7 @@
     <script src="app/modules/carApp.js"></script>
     <script src="app/controllers/mainController.js"></script>
     <script src="app/controllers/controllerCars.js"></script>
+    <script src="app/controllers/controllerClient.js"></script>
     <script src="app/lib/bootstrap.bundle.min.js"></script>
     <script src="app/lib/all.min.js"></script>
     <script>
