@@ -22,6 +22,9 @@ a {
     color: var(--main-color) !important;
     background-color: #fff !important;
 }
+.hidden {
+    display: none;
+}
 .header {
     display: flex;
     justify-content: space-between;
@@ -187,3 +190,13 @@ a {
     gap: 5px;
 }
 /* End Read */
+/* Start Create */
+.create form .submit {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.create form .submit .success span {
+    color: var(--bs-success-text);
+}
+/* End Create */
