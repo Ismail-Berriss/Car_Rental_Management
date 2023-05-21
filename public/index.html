@@ -234,7 +234,7 @@
                 <!-- End Location -->
                 <!-- Start Client -->
                 <div ng-show="showClientView">
-                    <div class="client">Clients</div>
+
                 </div>
                 <!-- End Client -->
                 <!-- Start Cars -->
@@ -244,21 +244,32 @@
                         <div class="read" ng-show="showCarsReadView">
                             <!-- Start Header -->
                             <div class="header">
-                                <h1>
-                                    Vehicules
-                                    <a href="" ng-click="showCarsCreate()" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Ajouter Vehicule">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </a>
-                                </h1>
-
-                                <div class="search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                    <input type="search" id="clientSearch" placeholder="Enter a client's name" />
+                                <div class="header-container">
+                                    <h1>
+                                        Vehicules
+                                        <!-- <a href="" ng-click="showCarsCreate()" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="Ajouter Vehicule">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </a> -->
+                                    </h1>
+                                    <button class="add" ng-click="showCarsCreate()">
+                                        <span class="circle1"></span>
+                                        <span class="circle2"></span>
+                                        <span class="circle3"></span>
+                                        <span class="circle4"></span>
+                                        <span class="circle5"></span>
+                                        <span class="text">Ajouter Vehicule</span>
+                                    </button>
                                 </div>
-                                <div class="search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                    <input type="search" id="carSearch" placeholder="Enter a car's model" />
+                                <div class="search-container">
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Marque" ng-model="searchMarque" />
+                                    </div>
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Modèle" ng-model="searchModele" />
+                                    </div>
                                 </div>
                             </div>
                             <!-- End Header -->
@@ -277,7 +288,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="car in cars">
+                                        <tr
+                                            ng-repeat="car in cars | orderBy:'id' | filter : filterMarque | filter : filterModele">
                                             <td>{{ car.id }}</td>
                                             <td>{{ car.type }}</td>
                                             <td>{{ car.marque }}</td>
@@ -447,7 +459,9 @@
                 <!-- End Cars -->
             </div>
         </div>
-        <!-- End Content -->
+    </div>
+    <!-- End Content -->
+
     </div>
     <!-- End Page -->
     <script src="app/modules/carApp.js"></script>

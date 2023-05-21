@@ -29,6 +29,26 @@ app.controller("controllerCar", function($scope, $firebaseArray) {
         $scope.car = car;
     }
 
+    /* Search */
+
+    $scope.filterMarque = function(car) {
+        if(!$scope.searchMarque) {
+            return true;
+        }
+
+        let searchMarque = $scope.searchMarque.toLowerCase();
+        return car.marque.toLowerCase().indexOf(searchMarque) !== -1;
+    }
+
+    $scope.filterModele = function(car) {
+        if(!$scope.searchModele) {
+            return true;
+        }
+
+        let searchModele = $scope.searchModele.toLowerCase();
+        return car.modele.toLowerCase().indexOf(searchModele) !== -1;
+    }
+
     /* Create */
     $scope.createCar = function () {
 
