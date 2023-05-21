@@ -92,7 +92,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" ng-click="showVehicule(4)" ng-class="{'active': isActive(4)}">
+                    <a href="" ng-click="showCar(4)" ng-class="{'active': isActive(4)}">
                         <span class="i-container">
                             <i class="fa-solid fa-car-side"></i>
                         </span>
@@ -237,29 +237,32 @@
                     <div class="client">Clients</div>
                 </div>
                 <!-- End Client -->
-                <!-- Start Voitures -->
-                <div ng-show="showVehiculeView">
-                    <div class="vehicule" ng-controller="controllerVehicule">
-                        <!-- Start Header -->
-                        <div class="header">
-                            <h1>
-                                Vehicules
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Ajouter Vehicule">
-                                    <i class="fa-solid fa-file-circle-plus"></i>
-                                </a>
-                            </h1>
-                            <div class="search">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="search" id="clientSearch" placeholder="Enter a client's name" />
+                <!-- Start Cars -->
+                <div ng-show="showCarView">
+                    <div class="cars" ng-controller="controllerCar">
+                        <!-- Start Read -->
+                        <div class="read" ng-show="showCarsReadView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <h1>
+                                    Vehicules
+                                    <a href="" ng-click="showCarsCreate()" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="Ajouter Vehicule">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </a>
+                                </h1>
+
+                                <div class="search">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input type="search" id="clientSearch" placeholder="Enter a client's name" />
+                                </div>
+                                <div class="search">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input type="search" id="carSearch" placeholder="Enter a car's model" />
+                                </div>
                             </div>
-                            <div class="search">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="search" id="carSearch" placeholder="Enter a car's model" />
-                            </div>
-                        </div>
-                        <!-- End Header -->
-                        <hr />
-                        <div class="show" ng-model="showVehicules()">
+                            <!-- End Header -->
+                            <hr />
                             <h5>Toutes les vehicules</h5>
                             <div class="table-container">
                                 <table class="table">
@@ -296,9 +299,69 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="create" ng-show="showCarsCreateView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <h1>
+                                    Ajouter Vehicule
+                                </h1>
+                            </div>
+                            <hr />
+                            <!-- End Header -->
+                            <form class="row g-3 needs-validation" novalidate>
+                                <div class="col-md-6">
+                                    <label for="marque" class="form-label">Marque</label>
+                                    <input type="text" class="form-control" id="marque" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer une marque.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="modele" class="form-label">Modèle</label>
+                                    <input type="text" class="form-control" id="modele" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un modèle.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="puissance" class="form-label">Puissance</label>
+                                    <input type="number" class="form-control" id="puissance" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un puissance.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="type" class="form-label">Type</label>
+                                    <select class="form-select" id="type" required>
+                                        <option selected disabled value="">Choisir...</option>
+                                        <option>Gasoil</option>
+                                        <option>Essence</option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez coisir un type.
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary" type="submit">Ajouter</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Start Read -->
                     </div>
                 </div>
-                <!-- End Voitures -->
+                <!-- End Cars -->
             </div>
         </div>
         <!-- End Content -->
@@ -306,7 +369,7 @@
     <!-- End Page -->
     <script src="app/modules/carApp.js"></script>
     <script src="app/controllers/mainController.js"></script>
-    <script src="app/controllers/controllerVehicule.js"></script>
+    <script src="app/controllers/controllerCars.js"></script>
     <script src="app/lib/bootstrap.bundle.min.js"></script>
     <script src="app/lib/all.min.js"></script>
     <script>
@@ -319,6 +382,27 @@
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
         angular;
+    </script>
+    <script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            })()
     </script>
 </body>
 

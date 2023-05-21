@@ -153,37 +153,37 @@ a {
     padding-right: 20px;
 }
 /* End Content */
-/* Start Show */
-.show h5 {
+/* Start Read */
+.read h5 {
     margin-top: 40px;
     text-transform: uppercase;
 }
-.show .table-container {
+.read .table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
-.show h5 {
+.read h5 {
     margin-bottom: 20px;
 }
-.show table thead tr {
+.read table thead tr {
     border-color: transparent;
 }
-.show  table thead th {
+.read  table thead th {
     min-width: 130px;
     color: #b8c1cf;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 14px;
 }
-.show table tbody tr:hover {
+.read table tbody tr:hover {
     background-color: #e4eefd;
 }
-.show table tbody tr td {
+.read table tbody tr td {
     padding-left: 20px;
     vertical-align: middle;
 }
-.show table tbody tr td.actions {
+.read table tbody tr td.actions {
     display: flex;
     gap: 5px;
 }
-/* Start End */
+/* End Read */
