@@ -4,6 +4,7 @@ app.controller("mainController", function ($scope) {
     $scope.showLocationView = false;
     $scope.showClientView = false;
     $scope.showCarView = false;
+    $scope.showGarageView = false;
     $scope.active = 1;
 
     $scope.showDashboard = function (n) {
@@ -11,6 +12,7 @@ app.controller("mainController", function ($scope) {
         $scope.showLocationView = false;
         $scope.showClientView = false;
         $scope.showCarView = false;
+        $scope.showGarageView = false;
         $scope.active = n;
     };
 
@@ -19,6 +21,7 @@ app.controller("mainController", function ($scope) {
         $scope.showLocationView = true;
         $scope.showClientView = false;
         $scope.showCarView = false;
+        $scope.showGarageView = false;
         $scope.active = n;
     };
 
@@ -27,6 +30,7 @@ app.controller("mainController", function ($scope) {
         $scope.showLocationView = false;
         $scope.showClientView = true;
         $scope.showCarView = false;
+        $scope.showGarageView = false;
         $scope.active = n;
     };
 
@@ -35,6 +39,16 @@ app.controller("mainController", function ($scope) {
         $scope.showLocationView = false;
         $scope.showClientView = false;
         $scope.showCarView = true;
+        $scope.showGarageView = false;
+        $scope.active = n;
+    };
+
+    $scope.showGarage = function (n) {
+        $scope.showDashboardView = false;
+        $scope.showLocationView = false;
+        $scope.showClientView = false;
+        $scope.showCarView = false;
+        $scope.showGarageView = true;
         $scope.active = n;
     };
 

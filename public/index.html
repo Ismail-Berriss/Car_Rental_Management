@@ -99,6 +99,14 @@
                         Vehicules
                     </a>
                 </li>
+                <li>
+                    <a href="" ng-click="showGarage(5)" ng-class="{'active': isActive(5)}">
+                        <span class="i-container">
+                            <i class="fa-solid fa-warehouse"></i>
+                        </span>
+                        Garage
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- End sidebar -->
@@ -481,9 +489,6 @@
                                                 <button type="button" class="btn btn-danger" ng-click="deleteCar(car)">
                                                     Supprimer
                                                 </button>
-                                                <button type="button" class="btn btn-success">
-                                                    Facture
-                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -632,6 +637,159 @@
                     </div>
                 </div>
                 <!-- End Cars -->
+                <!-- Start Garage -->
+                <div ng-show="showGarageView">
+                    <div class="garage" ng-controller="controllerGarage">
+                        <!-- Start Read -->
+                        <div class="read" ng-show="showGaragesReadView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <div class="header-container">
+                                    <h1>
+                                        Garages
+                                    </h1>
+                                    <button class="add" ng-click="showGaragesCreate()">
+                                        <span class="circle1"></span>
+                                        <span class="circle2"></span>
+                                        <span class="circle3"></span>
+                                        <span class="circle4"></span>
+                                        <span class="circle5"></span>
+                                        <span class="text">Ajouter Garage</span>
+                                    </button>
+                                </div>
+                                <div class="search-container">
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Nom" ng-model="searchNom" />
+                                    </div>
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Adresse" ng-model="searchAdresse" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Header -->
+                            <hr />
+                            <h5>Tous les garages</h5>
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Adresse</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="garage in garages | filter : filterNom | filter : filterAdresse">
+                                            <td>{{ garage.nom }}</td>
+                                            <td>{{ garage.adresse }}</td>
+                                            <td class="actions">
+                                                <button type="button" class="btn btn-primary"
+                                                    ng-click="showGaragesUpdate(garage)">
+                                                    Modifier
+                                                </button>
+                                                <button type="button" class="btn btn-danger"
+                                                    ng-click="deleteGarage(garage)">
+                                                    Supprimer
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End Read -->
+                        <!-- Start Create -->
+                        <div class="create" ng-show="showGaragesCreateView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <h1>
+                                    Ajouter Garage
+                                </h1>
+                            </div>
+                            <hr />
+                            <!-- End Header -->
+                            <form class="row g-3 needs-validation" novalidate>
+                                <div class="col-md-6">
+                                    <label for="nom" class="form-label">Nom</label>
+                                    <input type="text" class="form-control" id="nom" ng-model="newGarage.nom" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un nom.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="adresse" class="form-label">Adresse</label>
+                                    <input type="text" class="form-control" id="adresse" ng-model="newGarage.adresse"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer une adresse.
+                                    </div>
+                                </div>
+                                <div class="col-12 submit">
+                                    <button class="btn btn-primary" ng-click="createGarage()"
+                                        type="submit">Ajouter</button>
+                                    <button class="btn btn-danger" ng-click="showGaragesRead()">
+                                        Annuler
+                                    </button>
+                                    <div class="success" ng-show="success">
+                                        <span>Nouveau garage ajouté avec succès!</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Create -->
+                        <!-- Start Update -->
+                        <div class="update" ng-show="showGaragesUpdateView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <h1>
+                                    Modifier Garage
+                                </h1>
+                            </div>
+                            <hr />
+                            <!-- End Header -->
+                            <form class="row g-3 needs-validation" novalidate>
+                                <div class="col-md-6">
+                                    <label for="nom" class="form-label">Nom</label>
+                                    <input type="text" class="form-control" id="nom" ng-model="garage.nom" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un nom.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="adresse" class="form-label">Adresse</label>
+                                    <input type="text" class="form-control" id="adresse" ng-model="garage.adresse"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer une adresse.
+                                    </div>
+                                </div>
+                                <div class="col-12 submit">
+                                    <button class="btn btn-primary" ng-click="updateGarage(garage)"
+                                        type="submit">Modifier</button>
+                                    <button class="btn btn-danger" ng-click="showGaragesRead()">
+                                        Annuler
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Update -->
+                    </div>
+                </div>
+                <!-- End Garage -->
             </div>
         </div>
     </div>
@@ -643,6 +801,7 @@
     <script src="app/controllers/mainController.js"></script>
     <script src="app/controllers/controllerCars.js"></script>
     <script src="app/controllers/controllerClient.js"></script>
+    <script src="app/controllers/controllerGarage.js"></script>
     <script src="app/lib/bootstrap.bundle.min.js"></script>
     <script src="app/lib/all.min.js"></script>
     <script>
