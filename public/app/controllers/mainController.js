@@ -1,11 +1,11 @@
 app.controller("mainController", function ($scope) {
     // Setting the default
-    $scope.showDashboardView = true;
-    $scope.showLocationView = false;
+    $scope.showDashboardView = false;
+    $scope.showLocationView = true;
     $scope.showClientView = false;
     $scope.showCarView = false;
     $scope.showGarageView = false;
-    $scope.active = 1;
+    $scope.active = 2;
 
     $scope.showDashboard = function (n) {
         $scope.showDashboardView = true;

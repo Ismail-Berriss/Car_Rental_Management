@@ -1,24 +1,28 @@
 app.controller("controllerCar", function($scope, $firebaseArray) {
     const carRef = firebase.database().ref().child("Vehicules");
-
+    const garageRef = firebase.database().ref().child("Garage");
+    
     let Car = $firebaseArray(carRef);
-
+    let Garage = $firebaseArray(garageRef);
+    
     //  Setting the views
     $scope.showCarsReadView = true;
     $scope.showCarsCreateView = false;
     $scope.showCarsUpdateView = false;
-
+    
     $scope.showCarsRead = function() {
         $scope.showCarsReadView = true;
         $scope.showCarsCreateView = false;
         $scope.showCarsUpdateView = false;
         $scope.cars = Car;
+        $scope.garages = Garage;
     };
-
+    
     $scope.showCarsCreate = function() {
         $scope.showCarsReadView = false;
         $scope.showCarsCreateView = true;
         $scope.showCarsUpdateView = false;
+        $scope.garages = Garage;
     };
 
     $scope.showCarsUpdate = function(car) {
@@ -26,6 +30,7 @@ app.controller("controllerCar", function($scope, $firebaseArray) {
         $scope.showCarsCreateView = false;
         $scope.showCarsUpdateView = true;
         $scope.car = car;
+        $scope.garages = Garage;
     };
 
     /* Search */
@@ -47,6 +52,24 @@ app.controller("controllerCar", function($scope, $firebaseArray) {
         return car.modele.toLowerCase().indexOf(searchModele) !== -1;
     };
 
+    $scope.filterPrix = function(car) {
+        if(!$scope.searchPrix) {
+            return true;
+        }
+
+        let searchPrix = $scope.searchPrix.toLowerCase();
+        return car.prix.toLowerCase().indexOf(searchPrix) !== -1;
+    };
+
+    $scope.filterGarage = function(car) {
+        if(!$scope.searchGarage) {
+            return true;
+        }
+
+        let searchGarage = $scope.searchGarage.toLowerCase();
+        return car.garage.toLowerCase().indexOf(searchGarage) !== -1;
+    };
+
     /* Create */
     $scope.createCar = function () {
 
@@ -66,7 +89,9 @@ app.controller("controllerCar", function($scope, $firebaseArray) {
             type: $scope.newCar.type,
             marque: $scope.newCar.marque,
             modele: $scope.newCar.modele,
-            puissance: $scope.newCar.puissance
+            puissance: $scope.newCar.puissance,
+            prix: $scope.newCar.prix,
+            garage: $scope.newCar.garage
         });
         
         $scope.success = true;
@@ -93,6 +118,12 @@ app.controller("controllerCar", function($scope, $firebaseArray) {
     /* Delete */
     $scope.deleteCar = function (car) {
         Car.$remove(car);
+    };
+
+    /* Clear */
+    $scope.clearCar = function() {
+        $scope.newCar = {};
+        $scope.car = {};
     };
 
 });

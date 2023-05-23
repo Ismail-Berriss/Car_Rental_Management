@@ -65,7 +65,9 @@
     <div class="page" ng-controller="mainController">
         <!-- Start sidebar -->
         <div class="sidebar">
-            <button class="btn">Nouvelle Location</button>
+            <button class="btn" ng-click="showLocationsCreate()">
+                Nouvelle Location
+            </button>
             <ul>
                 <li>
                     <a href="" ng-click="showDashboard(1)" ng-class="{'active': isActive(1)}">
@@ -122,121 +124,461 @@
                 <!-- End Dashboard -->
                 <!-- Start Location -->
                 <div ng-show="showLocationView">
-                    <div class="location">
-                        <!-- Start Header -->
-                        <div class="header">
-                            <h1>
-                                Rental Contracts
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Contract">
-                                    <i class="fa-solid fa-file-circle-plus"></i>
-                                </a>
-                            </h1>
-                            <div class="search">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="search" id="clientSearch" placeholder="Enter a client's name" />
+                    <div class="location" ng-controller="controllerLocation">
+                        <!-- Start Read -->
+                        <div class="read" ng-show="showLocationsReadView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <div class="header-container">
+                                    <h1>
+                                        Locations
+                                    </h1>
+                                    <button class="add" ng-click="showLocationsCreate()">
+                                        <span class="circle1"></span>
+                                        <span class="circle2"></span>
+                                        <span class="circle3"></span>
+                                        <span class="circle4"></span>
+                                        <span class="circle5"></span>
+                                        <span class="text">Ajouter Location</span>
+                                    </button>
+                                </div>
+                                <div class="search-container">
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Vehicule" ng-model="searchVehicule" />
+                                    </div>
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Client" ng-model="searchClient" />
+                                    </div>
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Date debut" ng-model="searchDateDebut" />
+                                    </div>
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Date fin" ng-model="searchDateFin" />
+                                    </div>
+                                </div>
                             </div>
-                            <div class="search">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="search" id="carSearch" placeholder="Enter a car's model" />
-                            </div>
-                        </div>
-                        <!-- End Header -->
-                        <hr />
-                        <!-- Start Show -->
-                        <div class="show">
-                            <h5>All Contracts</h5>
+                            <!-- End Header -->
+                            <hr />
+                            <h5>Toutes les locations</h5>
                             <div class="table-container">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                            <th>Actions</th>
                                             <th>Client</th>
-                                            <th scope="col">Car</th>
-                                            <th scope="col">Start Date</th>
-                                            <th scope="col">Start Hour</th>
-                                            <th scope="col">Start Km Count</th>
-                                            <th scope="col">End Date</th>
-                                            <th scope="col">End Hour</th>
-                                            <th scope="col">End Km Count</th>
-                                            <th scope="col">Distance</th>
-                                            <th scope="col">Actions</th>
+                                            <th>Vehicule</th>
+                                            <th>Date debut</th>
+                                            <th>Heure debut</th>
+                                            <th>Km debut</th>
+                                            <th>Date fin</th>
+                                            <th>Heure fin</th>
+                                            <th>Km fin</th>
+                                            <th>Distance</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Mark</td>
-                                            <td>Mark</td>
-                                            <td>Mark</td>
-                                            <td>Marklllllllllllllllllllll</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
+                                        <tr
+                                            ng-repeat="location in locations | orderBy: dateFin | filter : filterVehicule | filter : filterClient | filter : filterDateDebut  | filter : filterDateFin">
                                             <td class="actions">
-                                                <button type="button" class="btn btn-primary">
-                                                    Edit
+                                                <button type="button" class="btn btn-success"
+                                                    ng-click="showLocaionsBill(location)">
+                                                    Facture
                                                 </button>
-                                                <button type="button" class="btn btn-danger">
-                                                    Remove
+                                                <button type="button" class="btn btn-primary"
+                                                    ng-click="showLocationsUpdate(location)">
+                                                    Modifier
                                                 </button>
-                                                <button type="button" class="btn btn-success">
-                                                    Bill
+                                                <button type="button" class="btn btn-danger"
+                                                    ng-click="deleteLocation(location)">
+                                                    Supprimer
                                                 </button>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Mark</td>
-                                            <td>Mark</td>
-                                            <td>Mark</td>
-                                            <td>Marklllllllllllllllllllll</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td class="actions">
-                                                <button type="button" class="btn btn-primary">
-                                                    Edit
-                                                </button>
-                                                <button type="button" class="btn btn-danger">
-                                                    Remove
-                                                </button>
-                                                <button type="button" class="btn btn-success">
-                                                    Bill
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Mark</td>
-                                            <td>Mark</td>
-                                            <td>Mark</td>
-                                            <td>Marklllllllllllllllllllll</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td class="actions">
-                                                <button type="button" class="btn btn-primary">
-                                                    Edit
-                                                </button>
-                                                <button type="button" class="btn btn-danger">
-                                                    Remove
-                                                </button>
-                                                <button type="button" class="btn btn-success">
-                                                    Bill
-                                                </button>
-                                            </td>
+                                            <td>{{ location.client }}</td>
+                                            <td>{{ location.vehicule }}</td>
+                                            <td>{{ location.formattedDateDebut }}</td>
+                                            <td>{{ location.formattedHeureDebut }}</td>
+                                            <td>{{ location.kmDebut }}</td>
+                                            <td>{{ location.formattedDateFin }}</td>
+                                            <td>{{ location.formattedHeureFin }}</td>
+                                            <td>{{ location.kmFin }}</td>
+                                            <td>{{ location.distance }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <!-- End Show -->
+                        <!-- End Read -->
+                        <!-- Start Bill -->
+                        <div class="bill" ng-show="showLocationsBillView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <div class="header-container">
+                                    <h1>
+                                        Facture
+                                    </h1>
+                                    <button class="back" ng-click="showLocationsRead()">
+                                        <img src="content/img/Arrow_-_Left.png" alt="">
+                                        <span>Retour</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr />
+                            <!-- End Header -->
+                            <form class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="numero" class="form-label">Numéro</label>
+                                    <input type="text" class="form-control" id="numero" ng-model="facture.id" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="client" class="form-label">Client</label>
+                                    <input type="text" class="form-control" id="client" ng-model="location.client"
+                                        disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="vehicule" class="form-label">Vehicule</label>
+                                    <input type="text" class="form-control" id="vehicule" ng-model="location.vehicule"
+                                        disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="date" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="date" ng-model="facture.date" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="dateDebut" class="form-label">Date debut</label>
+                                    <input type="date" class="form-control" id="dateDebut" ng-model="location.dateDebut"
+                                        disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="dateFin" class="form-label">Date fin</label>
+                                    <input type="date" class="form-control" id="dateFin" ng-model="location.dateFin"
+                                        disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="sousTotal" class="form-label">Sous-total</label>
+                                    <input type="text" class="form-control" id="sousTotal" ng-model="facture.sousTotal"
+                                        disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="forfait" class="form-label">Forfait</label>
+                                    <input type="text" class="form-control" id="forfait" ng-model="facture.forfait">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="tva" class="form-label">TVA</label>
+                                    <input type="text" class="form-control" id="tva" ng-model="facture.tva" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="total" class="form-label">Total</label>
+                                    <input type="text" class="form-control" id="total" ng-model="facture.total"
+                                        disabled>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Bill -->
+                        <!-- Start Create -->
+                        <div class="create" ng-show="showLocationsCreateView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <div class="header-container">
+                                    <h1>
+                                        Ajouter Location
+                                    </h1>
+                                    <button class="back" ng-click="showLocationsRead()">
+                                        <img src="content/img/Arrow_-_Left.png" alt="">
+                                        <span>Retour</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr />
+                            <!-- End Header -->
+                            <form class="row g-3 needs-validation" novalidate>
+                                <div class="col-md-6">
+                                    <label for="client" class="form-label">Client</label>
+                                    <select class="form-select" id="type" ng-model="newLocation.client" required>
+                                        <option selected disabled value="">Choisir...</option>
+                                        <option ng-repeat="client in clients">
+                                            {{ client.nom }} {{ client.prenom }}
+                                        </option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez choisir un client.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="vehicule" class="form-label">Vehicule</label>
+                                    <select class="form-select" id="vehicule" ng-model="newLocation.vehicule" required>
+                                        <option selected disabled value="">Choisir...</option>
+                                        <option ng-repeat="car in cars">
+                                            {{ car.marque }} {{ car.modele }}
+                                        </option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez choisir une vehicule.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dateDebut" class="form-label">Date debut</label>
+                                    <input type="date" class="form-control" id="dateDebut"
+                                        ng-model="newLocation.dateDebut" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer la date de debut.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dateFin" class="form-label">Date fin</label>
+                                    <input type="date" class="form-control" id="dateFin" ng-model="newLocation.dateFin"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer la date de fin.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="heureDebut" class="form-label">Heure debut</label>
+                                    <input type="time" class="form-control" id="heureDebut"
+                                        ng-model="newLocation.heureDebut" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer l'heure de debut.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="heureFin" class="form-label">Heure fin</label>
+                                    <input type="time" class="form-control" id="heureFin"
+                                        ng-model="newLocation.heureFin" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer l'heure de fin.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="kmDebut" class="form-label">Km debut</label>
+                                    <input type="number" class="form-control" id="kmDebut"
+                                        ng-model="newLocation.kmDebut" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer le kilometrage de debut.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="kmFin" class="form-label">Km fin</label>
+                                    <input type="number" class="form-control" id="kmFin" ng-model="newLocation.kmFin"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer le kilometrage de fin.
+                                    </div>
+                                </div>
+                                <div class="col-md-3 paiement-container">
+                                    <label for="paiement" class="form-label">Paiement</label>
+                                    <div class="btn-group" role="group" id="paiement"
+                                        aria-label="Basic radio toggle button group">
+
+                                        <input type="radio" class="btn-check" name="paiement" ng-model="carte"
+                                            id="carte" autocomplete="off" ng-click="showLocationsReadCarte()"
+                                            ng-checked="true">
+                                        <label class="btn btn-outline-primary" for="carte">Carte</label>
+
+                                        <input type="radio" class="btn-check" name="paiement" ng-model="cheque"
+                                            id="cheque" autocomplete="off" ng-click="showLocationsReadCheque()">
+                                        <label class="btn btn-outline-primary" for="cheque">Cheque</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" ng-show="showLocationsReadCarteView">
+                                    <label for="numero" class="form-label">Numero carte</label>
+                                    <input type="text" class="form-control" id="numero" ng-model="newFacture.numero"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un numéro de carte.
+                                    </div>
+                                </div>
+                                <div class="col-md-4" ng-show="showLocationsReadCarteView">
+                                    <label for="dateExpiration" class="form-label">Date d'expiration</label>
+                                    <input type="text" class="form-control" id="dateExpiration"
+                                        ng-model="newFacture.dateExpiration" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer la date d'expiration.
+                                    </div>
+                                </div>
+                                <div class="col-md-4" ng-show="showLocationsReadChequeView">
+                                    <label for="numero" class="form-label">Numero compte</label>
+                                    <input type="text" class="form-control" id="numero" ng-model="newFacture.numero"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un numéro de compte.
+                                    </div>
+                                </div>
+                                <div class="col-12 submit">
+                                    <button class="btn btn-primary" ng-click="createLocation()"
+                                        type="submit">Ajouter</button>
+                                    <button class="btn btn-secondary" ng-click="clearLocation()">
+                                        Vider
+                                    </button>
+                                    <div class="success" ng-show="success">
+                                        <span>Nouvelle location ajoutée avec succès!</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Create -->
+                        <!-- Start Update -->
+                        <div class="update" ng-show="showLocationsUpdateView">
+                            <!-- Start Header -->
+                            <div class="header">
+                                <div class="header-container">
+                                    <h1>
+                                        Modifier Location
+                                    </h1>
+                                    <button class="back" ng-click="showLocationsRead()">
+                                        <img src="content/img/Arrow_-_Left.png" alt="">
+                                        <span>Retour</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr />
+                            <!-- End Header -->
+                            <form class="row g-3 needs-validation" novalidate>
+                                <div class="col-md-6">
+                                    <label for="client" class="form-label">Client</label>
+                                    <select class="form-select" id="type" ng-model="location.client" required>
+                                        <option selected disabled value="">Choisir...</option>
+                                        <option ng-repeat="client in clients">
+                                            {{ client.nom }} {{ client.prenom }}
+                                        </option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez choisir un client.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="vehicule" class="form-label">Vehicule</label>
+                                    <select class="form-select" id="vehicule" ng-model="location.vehicule" required>
+                                        <option selected disabled value="">Choisir...</option>
+                                        <option ng-repeat="car in cars">
+                                            {{ car.marque }} {{ car.modele }}
+                                        </option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez choisir une vehicule.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dateDebut" class="form-label">Date debut</label>
+                                    <input type="date" class="form-control" id="dateDebut"
+                                        ng-model="location.formattedDateDebut" required>
+                                    {{ location.formattedDateDebut }}
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer la date de debut.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dateFin" class="form-label">Date fin</label>
+                                    <input type="date" class="form-control" id="dateFin"
+                                        ng-model="location.formattedDateFin" required>
+                                    {{ location.dateFin }}
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer la date de fin.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="heureDebut" class="form-label">Heure debut</label>
+                                    <input type="time" class="form-control" id="formattedHeureDebut"
+                                        ng-model="location.heureDebut" required>
+                                    {{ location.heureDebut }}
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer l'heure de debut.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="heureFin" class="form-label">Heure fin</label>
+                                    <input type="time" class="form-control" id="heureFin"
+                                        ng-model="location.formattedDateFin" required>
+                                    {{ location.heureFin }}
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer l'heure de fin.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="kmDebut" class="form-label">Km debut</label>
+                                    <input type="number" class="form-control" id="kmDebut" ng-model="location.kmDebut"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer le kilometrage de debut.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="kmFin" class="form-label">Km fin</label>
+                                    <input type="number" class="form-control" id="kmFin" ng-model="location.kmFin"
+                                        required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer le kilometrage de fin.
+                                    </div>
+                                </div>
+                                <div class="col-12 submit">
+                                    <button class="btn btn-primary" ng-click="createLocation()"
+                                        type="submit">Ajouter</button>
+                                    <button class="btn btn-secondary" ng-click="clearLocation()">
+                                        Vider
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Update -->
                     </div>
                 </div>
                 <!-- End Location -->
@@ -305,9 +647,6 @@
                                                     ng-click="deleteClient(client)">
                                                     Supprimer
                                                 </button>
-                                                <button type="button" class="btn btn-success">
-                                                    Facture
-                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -319,9 +658,17 @@
                         <div class="create" ng-show="showClientsCreateView">
                             <!-- Start Header -->
                             <div class="header">
-                                <h1>
-                                    Ajouter Client
-                                </h1>
+                                <div class="header">
+                                    <div class="header-container">
+                                        <h1>
+                                            Ajouter Client
+                                        </h1>
+                                        <button class="back" ng-click="showClientsRead()">
+                                            <img src="content/img/Arrow_-_Left.png" alt="">
+                                            <span>Retour</span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             <hr />
                             <!-- End Header -->
@@ -361,8 +708,8 @@
                                 <div class="col-12 submit">
                                     <button class="btn btn-primary" ng-click="createClient()"
                                         type="submit">Ajouter</button>
-                                    <button class="btn btn-danger" ng-click="showClientsRead()">
-                                        Annuler
+                                    <button class="btn btn-secondary" ng-click="clearClient()">
+                                        Vider
                                     </button>
                                     <div class="success" ng-show="success">
                                         <span>Nouveau client ajouté avec succès!</span>
@@ -375,9 +722,15 @@
                         <div class="update" ng-show="showClientsUpdateView">
                             <!-- Start Header -->
                             <div class="header">
-                                <h1>
-                                    Modifier Client
-                                </h1>
+                                <div class="header-container">
+                                    <h1>
+                                        Modifier Client
+                                    </h1>
+                                    <button class="back" ng-click="showClientsRead()">
+                                        <img src="content/img/Arrow_-_Left.png" alt="">
+                                        <span>Retour</span>
+                                    </button>
+                                </div>
                             </div>
                             <hr />
                             <!-- End Header -->
@@ -417,8 +770,8 @@
                                 <div class="col-12 submit">
                                     <button class="btn btn-primary" ng-click="updateClient(client)"
                                         type="submit">Modifier</button>
-                                    <button class="btn btn-danger" ng-click="showClientsRead()">
-                                        Annuler
+                                    <button class="btn btn-secondary" ng-click="clearClient()">
+                                        Vider
                                     </button>
                                 </div>
                             </form>
@@ -456,6 +809,14 @@
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                         <input type="search" placeholder="Modèle" ng-model="searchModele" />
                                     </div>
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Prix Par Jour" ng-model="searchPrix" />
+                                    </div>
+                                    <div class="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="search" placeholder="Garage" ng-model="searchGarage" />
+                                    </div>
                                 </div>
                             </div>
                             <!-- End Header -->
@@ -470,17 +831,21 @@
                                             <th>Marque</th>
                                             <th>Modèle</th>
                                             <th>Puissance</th>
+                                            <th>Prix par jour</th>
+                                            <th>Garage</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr
-                                            ng-repeat="car in cars | orderBy:'id' | filter : filterMarque | filter : filterModele">
+                                            ng-repeat="car in cars | orderBy:'id' | filter : filterMarque | filter : filterModele | filter : filterPrix | filter : filterGarage">
                                             <td>{{ car.id }}</td>
                                             <td>{{ car.type }}</td>
                                             <td>{{ car.marque }}</td>
                                             <td>{{ car.modele }}</td>
                                             <td>{{ car.puissance }}</td>
+                                            <td>{{ car.prix }}</td>
+                                            <td>{{ car.garage }}</td>
                                             <td class="actions">
                                                 <button type="button" class="btn btn-primary"
                                                     ng-click="showCarsUpdate(car)">
@@ -500,14 +865,19 @@
                         <div class="create" ng-show="showCarsCreateView">
                             <!-- Start Header -->
                             <div class="header">
-                                <h1>
-                                    Ajouter Vehicule
-                                </h1>
+                                <div class="header-container">
+                                    <h1>
+                                        Ajouter Vehicule
+                                    </h1>
+                                    <button class="back" ng-click="showCarsRead()">
+                                        <img src="content/img/Arrow_-_Left.png" alt="">
+                                        <span>Retour</span>
+                                    </button>
+                                </div>
                             </div>
                             <hr />
                             <!-- End Header -->
                             <form class="row g-3 needs-validation" novalidate>
-                                <!-- <input type="hidden" ng-model="newCar.id"> -->
                                 <div class="col-md-6">
                                     <label for="marque" class="form-label">Marque</label>
                                     <input type="text" class="form-control" id="marque" ng-model="newCar.marque"
@@ -542,6 +912,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <label for="prix" class="form-label">Prix par jour</label>
+                                    <input type="text" class="form-control" id="prix" ng-model="newCar.prix" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un prix par jour.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <label for="type" class="form-label">Type</label>
                                     <select class="form-select" id="type" ng-model="newCar.type" required>
                                         <option selected disabled value="">Choisir...</option>
@@ -555,11 +935,26 @@
                                         Veuillez coisir un type.
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="garage" class="form-label">Garage</label>
+                                    <select class="form-select" id="garage" ng-model="newCar.garage" required>
+                                        <option selected disabled value="">Choisir...</option>
+                                        <option ng-repeat="g in garages">
+                                            {{ g.nom }}
+                                        </option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez coisir un garage.
+                                    </div>
+                                </div>
                                 <div class="col-12 submit">
                                     <button class="btn btn-primary" ng-click="createCar()"
                                         type="submit">Ajouter</button>
-                                    <button class="btn btn-danger" ng-click="showCarsRead()">
-                                        Annuler
+                                    <button class="btn btn-secondary" ng-click="clearCar()">
+                                        Vider
                                     </button>
                                     <div class="success" ng-show="success">
                                         <span>Nouvelle vehicule ajoutée avec succès!</span>
@@ -572,9 +967,15 @@
                         <div class="update" ng-show="showCarsUpdateView">
                             <!-- Start Header -->
                             <div class="header">
-                                <h1>
-                                    Modifier Vehicule
-                                </h1>
+                                <div class="header-container">
+                                    <h1>
+                                        Modifier Vehicule
+                                    </h1>
+                                    <button class="back" ng-click="showCarsRead()">
+                                        <img src="content/img/Arrow_-_Left.png" alt="">
+                                        <span>Retour</span>
+                                    </button>
+                                </div>
                             </div>
                             <hr />
                             <!-- End Header -->
@@ -611,6 +1012,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <label for="prix" class="form-label">Prix par jour</label>
+                                    <input type="text" class="form-control" id="prix" ng-model="car.prix" required>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez insérer un prix par jour.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <label for="type" class="form-label">Type</label>
                                     <select class="form-select" id="type" ng-model="car.type" required>
                                         <option selected disabled value="">Choisir...</option>
@@ -624,11 +1035,26 @@
                                         Veuillez coisir un type.
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="garage" class="form-label">Garage</label>
+                                    <select class="form-select" id="garage" ng-model="car.garage" required>
+                                        <option selected disabled value="">Choisir...</option>
+                                        <option ng-repeat="g in garages">
+                                            {{ g.nom }}
+                                        </option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Veuillez coisir un garage.
+                                    </div>
+                                </div>
                                 <div class="col-12 submit">
                                     <button class="btn btn-primary" ng-click="updateCar(car)"
                                         type="submit">Modifier</button>
-                                    <button class="btn btn-danger" ng-click="showCarsRead()">
-                                        Annuler
+                                    <button class="btn btn-secondary" ng-click="clearCar()">
+                                        Vider
                                     </button>
                                 </div>
                             </form>
@@ -704,9 +1130,15 @@
                         <div class="create" ng-show="showGaragesCreateView">
                             <!-- Start Header -->
                             <div class="header">
-                                <h1>
-                                    Ajouter Garage
-                                </h1>
+                                <div class="header-container">
+                                    <h1>
+                                        Ajouter Garage
+                                    </h1>
+                                    <button class="back" ng-click="showGaragesRead()">
+                                        <img src="content/img/Arrow_-_Left.png" alt="">
+                                        <span>Retour</span>
+                                    </button>
+                                </div>
                             </div>
                             <hr />
                             <!-- End Header -->
@@ -735,8 +1167,8 @@
                                 <div class="col-12 submit">
                                     <button class="btn btn-primary" ng-click="createGarage()"
                                         type="submit">Ajouter</button>
-                                    <button class="btn btn-danger" ng-click="showGaragesRead()">
-                                        Annuler
+                                    <button class="btn btn-secondary" ng-click="clearGarage()">
+                                        Vider
                                     </button>
                                     <div class="success" ng-show="success">
                                         <span>Nouveau garage ajouté avec succès!</span>
@@ -749,9 +1181,15 @@
                         <div class="update" ng-show="showGaragesUpdateView">
                             <!-- Start Header -->
                             <div class="header">
-                                <h1>
-                                    Modifier Garage
-                                </h1>
+                                <div class="header-container">
+                                    <h1>
+                                        Modifier Garage
+                                    </h1>
+                                    <button class="back" ng-click="showGaragesRead()">
+                                        <img src="content/img/Arrow_-_Left.png" alt="">
+                                        <span>Retour</span>
+                                    </button>
+                                </div>
                             </div>
                             <hr />
                             <!-- End Header -->
@@ -780,8 +1218,8 @@
                                 <div class="col-12 submit">
                                     <button class="btn btn-primary" ng-click="updateGarage(garage)"
                                         type="submit">Modifier</button>
-                                    <button class="btn btn-danger" ng-click="showGaragesRead()">
-                                        Annuler
+                                    <button class="btn btn-secondary" ng-click="clearGarage()">
+                                        Vider
                                     </button>
                                 </div>
                             </form>
@@ -802,6 +1240,7 @@
     <script src="app/controllers/controllerCars.js"></script>
     <script src="app/controllers/controllerClient.js"></script>
     <script src="app/controllers/controllerGarage.js"></script>
+    <script src="app/controllers/controllerLocation.js"></script>
     <script src="app/lib/bootstrap.bundle.min.js"></script>
     <script src="app/lib/all.min.js"></script>
     <script>

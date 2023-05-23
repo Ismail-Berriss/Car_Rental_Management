@@ -77,4 +77,10 @@ app.controller("controllerGarage", function($scope, $firebaseArray) {
         Garage.$remove(garage);
     };
 
+    /* Clear */
+    $scope.clearGarage = function() {
+        $scope.newGarage = {};
+        $scope.garage = {};
+    };
+
 });

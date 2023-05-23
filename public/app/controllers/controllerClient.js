@@ -97,4 +97,10 @@ app.controller("controllerClient", function($scope, $firebaseArray) {
     $scope.deleteClient = function (client) {
         Client.$remove(client);
     };
+
+    /* Clear */
+    $scope.clearClient = function() {
+        $scope.newClient = {};
+        $scope.client = {};
+    };
 });
