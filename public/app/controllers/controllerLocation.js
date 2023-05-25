@@ -67,10 +67,8 @@ app.controller("controllerLocation", function($scope, $firebaseArray) {
 
         Bill.$ref().once('value', function(snap) {
             angular.forEach(snap.val(), function(index) {
-                console.log(index.id);
-                console.log(location.facture);
                 if(index.id === location.facture) {
-                    $scope.facture= index;
+                    $scope.bill= index;
                 }
             });
         });
@@ -129,22 +127,21 @@ app.controller("controllerLocation", function($scope, $firebaseArray) {
         Location.$add({
             client: $scope.newLocation.client,
             vehicule: $scope.newLocation.vehicule,
-            dateDebut: $scope.newLocation.dateDebut.toString(),
+            dateDebut: $scope.newLocation.dateDebut.toISOString(),
             formattedDateDebut: ('0' + (new Date($scope.newLocation.dateDebut)).getDate()).slice(-2) + '/' + ('0' + ((new Date($scope.newLocation.dateDebut)).getMonth() + 1)).slice(-2) + '/' + (new Date($scope.newLocation.dateDebut)).getFullYear(),
-            heureDebut: $scope.newLocation.heureDebut.toString(),
+            heureDebut: $scope.newLocation.heureDebut.toISOString(),
             formattedHeureDebut: ('0' + (new Date($scope.newLocation.heureDebut)).getHours()).slice(-2) + ':' + ('0' + (new Date($scope.newLocation.heureDebut)).getMinutes()).slice(-2),
             kmDebut: $scope.newLocation.kmDebut,
-            dateFin: $scope.newLocation.dateFin.toString(),
+            dateFin: $scope.newLocation.dateFin.toISOString(),
             formattedDateFin: ('0' + (new Date($scope.newLocation.dateFin)).getDate()).slice(-2) + '/' + ('0' + ((new Date($scope.newLocation.dateFin)).getMonth() + 1)).slice(-2) + '/' + (new Date($scope.newLocation.dateFin)).getFullYear(),
-            heureFin: $scope.newLocation.heureFin.toString(),
+            heureFin: $scope.newLocation.heureFin.toISOString(),
             formattedHeureFin: ('0' + (new Date($scope.newLocation.heureFin)).getHours()).slice(-2) + ':' + ('0' + (new Date($scope.newLocation.heureFin)).getMinutes()).slice(-2),
-            kmDebut: $scope.newLocation.kmDebut,
             kmFin: $scope.newLocation.kmFin,
             distance: $scope.newLocation.kmFin - $scope.newLocation.kmDebut,
             facture: $scope.newFacture.id
         });
 
-        let voiturePrix;
+        let voiturePrix = 0;
 
         Car.$ref().once('value', function(snap) {
             angular.forEach(snap.val(), function(index) {
@@ -158,15 +155,22 @@ app.controller("controllerLocation", function($scope, $firebaseArray) {
 
         let TVA = 0.2;
         let ff = 0;
-        let sT = (('0' + (new Date($scope.newLocation.dateFin)).getDate()).slice(-2) - ('0' + (new Date($scope.newLocation.dateDebut)).getDate()).slice(-2)) *  voiturePrix;
+        let sT = Math.ceil(((new Date($scope.newLocation.dateFin)).getTime() - ((new Date($scope.newLocation.dateDebut)).getTime())) / (1000 * 3600 *24))   *  voiturePrix;
         let tt = (sT + sT * TVA) - ff;
 
-        console.log($scope.newFacture.dateExpiration);
-        console.log($scope.newFacture.dateExpiration === "");
-        if($scope.newFacture.dateExpiration === "") {
+        if(typeof $scope.newFacture.dateExpiration === "undefined") {
+            console.log("id: " + $scope.newFacture.id);
+            console.log("dateDebut: " + $scope.newLocation.dateDebut.toISOString());
+            console.log("formattedDate: " +('0' + (new Date($scope.newLocation.dateDebut)).getDate()).slice(-2) + '/' + ('0' + ((new Date($scope.newLocation.dateDebut)).getMonth() + 1)).slice(-2) + '/' + (new Date($scope.newLocation.dateDebut)).getFullYear());
+            console.log("sT: " + sT);
+            console.log("ff: " + ff);
+            console.log("TVA: " + TVA);
+            console.log("tt: " + tt);
+            console.log("cheque");
+            console.log($scope.newFacture.numero);
             Bill.$add({
                 id: $scope.newFacture.id,
-                date: $scope.newLocation.dateDebut.toString(),
+                date: $scope.newLocation.dateDebut.toISOString(),
                 formattedDate: ('0' + (new Date($scope.newLocation.dateDebut)).getDate()).slice(-2) + '/' + ('0' + ((new Date($scope.newLocation.dateDebut)).getMonth() + 1)).slice(-2) + '/' + (new Date($scope.newLocation.dateDebut)).getFullYear(),
                 sousTotal: sT,
                 forfait: ff,
@@ -178,7 +182,7 @@ app.controller("controllerLocation", function($scope, $firebaseArray) {
         } else {
             Bill.$add({
                 id: $scope.newFacture.id,
-                date: $scope.newLocation.dateDebut.toString(),
+                date: $scope.newLocation.dateDebut.toISOString(),
                 formattedDate: ('0' + (new Date($scope.newLocation.dateDebut)).getDate()).slice(-2) + '/' + ('0' + ((new Date($scope.newLocation.dateDebut)).getMonth() + 1)).slice(-2) + '/' + (new Date($scope.newLocation.dateDebut)).getFullYear(),
                 sousTotal: sT,
                 forfait: ff,
@@ -189,8 +193,6 @@ app.controller("controllerLocation", function($scope, $firebaseArray) {
                 dateExpiration: $scope.newFacture.dateExpiration
             });
         }
-
-        
         
         $scope.success = true;
 
@@ -208,21 +210,36 @@ app.controller("controllerLocation", function($scope, $firebaseArray) {
         $scope.showLocationsRead();
     };
 
+    /* Update Bill */
+    $scope.updateBill = function(bill, location) {
+        Bill.$save(bill);
+        Location.$save(location)
+        $scope.showLocationsRead();
+    };
+
     /* Delete */
     $scope.deleteLocation = function (location) {
-        Location.$remove(location);
-
-        let bill;
-
-        Bill.$ref().once('value', function(snap) {
+                
+        /* Bill.$ref().once('value', function(snap) {
             angular.forEach(snap.val(), function(index) {
-                if(index.id === location.facture) {
-                    bill = index;
+                if(index.id == location.facture) {
+                    this.$remove(index);
                 }
             });
         });
+        
+        Location.$remove(location); */
 
-        Bill.$remove(bill);
+        firebase.database().ref('Bill').once('value', function(snap) {
+            snap.forEach(function(childSnap) {
+                var bill = childSnap.val();
+                if (bill.id === location.facture) {
+                    childSnap.ref.remove();
+                }
+            });
+        });
+    
+        Location.$remove(location);
     };
 
     /* Clear */
@@ -230,8 +247,6 @@ app.controller("controllerLocation", function($scope, $firebaseArray) {
         $scope.newLocation = {};
         $scope.location = {};
     };
-
-    /* Bill */
 
 
 });

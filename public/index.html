@@ -231,7 +231,7 @@
                             <form class="row g-3">
                                 <div class="col-md-4">
                                     <label for="numero" class="form-label">Numéro</label>
-                                    <input type="text" class="form-control" id="numero" ng-model="facture.id" disabled>
+                                    <input type="text" class="form-control" id="numero" ng-model="bill.id" disabled>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="client" class="form-label">Client</label>
@@ -245,35 +245,40 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="date" class="form-label">Date</label>
-                                    <input type="date" class="form-control" id="date" ng-model="facture.date" disabled>
+                                    <input type="date" class="form-control" id="date" ng-model="bill.date">
+                                    {{ bill.formattedDate }}
                                 </div>
                                 <div class="col-md-4">
                                     <label for="dateDebut" class="form-label">Date debut</label>
-                                    <input type="date" class="form-control" id="dateDebut" ng-model="location.dateDebut"
-                                        disabled>
+                                    <input type="date" class="form-control" id="dateDebut"
+                                        ng-model="location.dateDebut">
+                                    {{ location.formattedDateDebut }}
                                 </div>
                                 <div class="col-md-4">
                                     <label for="dateFin" class="form-label">Date fin</label>
-                                    <input type="date" class="form-control" id="dateFin" ng-model="location.dateFin"
-                                        disabled>
+                                    <input type="date" class="form-control" id="dateFin" ng-model="location.dateFin">
+                                    {{ location.formattedDateFin }}
                                 </div>
                                 <div class="col-md-4">
                                     <label for="sousTotal" class="form-label">Sous-total</label>
-                                    <input type="text" class="form-control" id="sousTotal" ng-model="facture.sousTotal"
+                                    <input type="text" class="form-control" id="sousTotal" ng-model="bill.sousTotal"
                                         disabled>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="forfait" class="form-label">Forfait</label>
-                                    <input type="text" class="form-control" id="forfait" ng-model="facture.forfait">
+                                    <input type="text" class="form-control" id="forfait" ng-model="bill.forfait">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="tva" class="form-label">TVA</label>
-                                    <input type="text" class="form-control" id="tva" ng-model="facture.tva" disabled>
+                                    <input type="text" class="form-control" id="tva" ng-model="bill.tva" disabled>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="total" class="form-label">Total</label>
-                                    <input type="text" class="form-control" id="total" ng-model="facture.total"
-                                        disabled>
+                                    <input type="text" class="form-control" id="total" ng-model="bill.total" disabled>
+                                </div>
+                                <div class="col-12 submit">
+                                    <button class="btn btn-primary" ng-click="updateBill(bill, location)"
+                                        type="submit">Modifier</button>
                                 </div>
                             </form>
                         </div>
@@ -472,7 +477,6 @@
                                 <div class="col-md-6">
                                     <label for="client" class="form-label">Client</label>
                                     <select class="form-select" id="type" ng-model="location.client" required>
-                                        <option selected disabled value="">Choisir...</option>
                                         <option ng-repeat="client in clients">
                                             {{ client.nom }} {{ client.prenom }}
                                         </option>
@@ -487,7 +491,6 @@
                                 <div class="col-md-6">
                                     <label for="vehicule" class="form-label">Vehicule</label>
                                     <select class="form-select" id="vehicule" ng-model="location.vehicule" required>
-                                        <option selected disabled value="">Choisir...</option>
                                         <option ng-repeat="car in cars">
                                             {{ car.marque }} {{ car.modele }}
                                         </option>
@@ -501,8 +504,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="dateDebut" class="form-label">Date debut</label>
-                                    <input type="date" class="form-control" id="dateDebut"
-                                        ng-model="location.formattedDateDebut" required>
+                                    <input type="date" class="form-control" id="dateDebut" ng-model="location.dateDebut"
+                                        required>
                                     {{ location.formattedDateDebut }}
                                     <div class="valid-feedback">
                                         C'est bon!
@@ -513,9 +516,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="dateFin" class="form-label">Date fin</label>
-                                    <input type="date" class="form-control" id="dateFin"
-                                        ng-model="location.formattedDateFin" required>
-                                    {{ location.dateFin }}
+                                    <input type="date" class="form-control" id="dateFin" ng-model="location.dateFin"
+                                        required>
+                                    {{ location.formattedDateFin }}
                                     <div class="valid-feedback">
                                         C'est bon!
                                     </div>
@@ -525,9 +528,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="heureDebut" class="form-label">Heure debut</label>
-                                    <input type="time" class="form-control" id="formattedHeureDebut"
+                                    <input type="time" class="form-control" id="heureDebut"
                                         ng-model="location.heureDebut" required>
-                                    {{ location.heureDebut }}
+                                    {{ location.formattedHeureDebut }}
                                     <div class="valid-feedback">
                                         C'est bon!
                                     </div>
@@ -537,9 +540,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="heureFin" class="form-label">Heure fin</label>
-                                    <input type="time" class="form-control" id="heureFin"
-                                        ng-model="location.formattedDateFin" required>
-                                    {{ location.heureFin }}
+                                    <input type="time" class="form-control" id="heureFin" ng-model="location.heureFin"
+                                        required>
+                                    {{ location.formattedHeureFin }}
                                     <div class="valid-feedback">
                                         C'est bon!
                                     </div>
@@ -570,8 +573,8 @@
                                     </div>
                                 </div>
                                 <div class="col-12 submit">
-                                    <button class="btn btn-primary" ng-click="createLocation()"
-                                        type="submit">Ajouter</button>
+                                    <button class="btn btn-primary" ng-click="updateLocation(location)"
+                                        type="submit">Modifier</button>
                                     <button class="btn btn-secondary" ng-click="clearLocation()">
                                         Vider
                                     </button>
