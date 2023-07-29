@@ -70,14 +70,6 @@
             </button>
             <ul>
                 <li>
-                    <a href="" ng-click="showDashboard(1)" ng-class="{'active': isActive(1)}">
-                        <span class="i-container">
-                            <i class="fa-solid fa-chart-bar"></i>
-                        </span>
-                        Tableau de bord
-                    </a>
-                </li>
-                <li>
                     <a href="" ng-click="showLocation(2)" ng-class="{'active': isActive(2)}">
                         <span class="i-container">
                             <i class="fa-solid fa-file-pen"></i>
@@ -115,13 +107,6 @@
         <!-- Start Content -->
         <div class="page-content">
             <div class="container">
-                <!-- Start Dashboard -->
-                <div ng-show="showDashboardView">
-                    <div class="dashboard">
-                        Dashboard
-                    </div>
-                </div>
-                <!-- End Dashboard -->
                 <!-- Start Location -->
                 <div ng-show="showLocationView">
                     <div class="location" ng-controller="controllerLocation">
